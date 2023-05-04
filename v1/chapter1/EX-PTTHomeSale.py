@@ -11,6 +11,7 @@ response = urlopen(req)
 BS = BeautifulSoup(response.read(),'html.parser')
 
 # response = requests.get(url)
+# print(response.headers)
 # BS = BeautifulSoup(response.text,'html.parser')
 
 # print(BS.prettify())
