@@ -1,16 +1,16 @@
 import requests
 from bs4 import BeautifulSoup
 
-request = requests.session()
+session = requests.session()
 
 my_data = {'from': '/bbs/Gossiping/index.html',
            'yes': 'yes'}
 
-r = request.post("https://www.ptt.cc/ask/over18", data=my_data)
+r = session.post("https://www.ptt.cc/ask/over18", data=my_data)
 
-url = "https://www.ptt.cc/bbs/Gossiping/index.html";
+url = "https://www.ptt.cc/bbs/Gossiping/index.html"
 while (True):
-    r2 = request.get(url)
+    r2 = session.get(url)
     if r2.status_code == 200:
         soup = BeautifulSoup(r2.text, 'html.parser')
         titles = soup.find_all('div', class_='title')

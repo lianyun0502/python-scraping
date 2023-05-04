@@ -1,9 +1,8 @@
 import requests
 
 session = requests.Session()
-
-params = {'username': 'username', 'password': 'password'}
-s = session.post("https://pythonscraping.com/pages/cookies/welcome.php", params)
+param = {'username': 'username', 'password': 'password'}
+s = session.post("https://pythonscraping.com/pages/cookies/welcome.php", data=param)
 print("Cookie is set to:")
 print(s.cookies.get_dict())
 print("-----------")
