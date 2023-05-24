@@ -8,3 +8,6 @@ print("-----------")
 print("Going to profile page...")
 r = requests.get("http://pythonscraping.com/pages/cookies/profile.php", cookies=r.cookies)
 print(r.text)
+
+r = requests.get("http://pythonscraping.com/pages/cookies/profile.php")
+

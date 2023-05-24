@@ -9,3 +9,6 @@ print("-----------")
 print("Going to profile page...")
 s = session.get("https://pythonscraping.com/pages/cookies/profile.php")
 print(s.text)
+
+s = session.get("https://pythonscraping.com/pages/cookies/profile.php")
+print(s.text)
