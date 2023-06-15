@@ -1,47 +1,54 @@
 # 1.1 控制瀏覽器視窗大小
-在不同的瀏覽器大小下訪問測試站點,對測試頁面截圖並儲存,然後觀察或使用影象比對工具對被測頁面的前端樣式進行評測。比如可以將瀏覽器設定成移動端大小(480x800),然後訪問移動站點,對其樣式進行評估;WebDriver 提供了set_window_size() 方法來設定瀏覽器的大小。
+在不同的瀏覽器大小下訪問測試站點,對測試頁面截圖並儲存,然後觀察或使用影象比對工具對被測頁面的前端樣式進行評測。比如可以將瀏覽器設定成移動端大小(480x800),然後訪問移動站點,對其樣式進行評估 `WebDriver` 提供了`set_window_size()` 方法來設定瀏覽器的大小。
 ### 例子:
 
 ```python
 from selenium import webdriver
-driver = webdriver.Firefox()
-driver.get("http://192.168.30.180/Uet-Platform/")
+driver = webdriver.Edge()
+driver.get("https://github.com/lianyun0502")
 #引數數字為畫素點
 print("****設定瀏覽器寬480、高800 顯示")
 driver.set_window_size(480, 800)
 driver.quit()
 ```
 
-在PC 端執行執行自動化測試指令碼大多的情況下是希望瀏覽器在全螢幕模式下執行,那麼可以使用maximize_window()方法,其用法與set_window_size() 相同,但它不需要傳參。
+在PC 端執行執行自動化測試指令碼大多的情況下是希望瀏覽器在全螢幕模式下執行,那麼可以使用`maximize_window()`方法,其用法與`set_window_size()` 相同,但它不需要傳參。
 
 # 1.2 控制瀏覽器後退和前進
-在使用瀏覽器瀏覽網頁的時候,瀏覽器提供了後退和前進按鈕,可以方便的對瀏覽過的網頁之間切換,那麼WebDriver 也提供了對應的back()和forward()方法來模擬後退和前進按鈕。下面通過例子來演示這兩個方法的使用。
+在使用瀏覽器瀏覽網頁的時候,瀏覽器提供了後退和前進按鈕,可以方便的對瀏覽過的網頁之間切換,那麼`WebDriver` 也提供了對應的`back()`和`forward()`方法來模擬後退和前進按鈕。下面通過例子來演示這兩個方法的使用。
 
 ### 例子:
 
 ```python
 from selenium import webdriver
-driver = webdriver.Firefox()
-#訪問百度首頁
-first_url= 'http://www.baidu.com'
+driver = webdriver.Edge()
+
+first_url= 'https://github.com/lianyun0502'
 print("now access %s" %(first_url))
 driver.get(first_url)
-#****訪問新聞頁面**
-second_url='http://news.baidu.com'
+
+second_url='https://github.com/lianyun0502?tab=repositories'
 print("now access %s" %(second_url))
 driver.get(second_url)
-#****返回(後退)到百度首頁
+#****返回(後退)
 print("back to %s "%(first_url))
 driver.back()
-#****前進到新聞頁
+#****前進
 print("forward to %s"%(second_url))
 driver.forward()
 driver.quit()
 ```
 # 1.3 模擬重新整理瀏覽器
 有時候需要手動的重新整理(F5)的重新整理頁面
-
+```python
+from selenium import webdriver
+driver = webdriver.Edge()
+first_url= 'https://github.com/lianyun0502'
+print("now access %s" %(first_url))
+driver.get(first_url)
 driver.refresh() #****重新整理當前頁面** 
+driver.quit()
+```
 
 # 2 元素操作 
 
@@ -55,18 +62,17 @@ driver.refresh() #****重新整理當前頁面**
 ```python
 from selenium import webdriver
 import unittest, time, re
-driver = webdriver.Firefox()
+from selenium.webdriver.common.by import By
+driver = webdriver.Edge()
 driver.implicitly_wait(30)
-base_url ="http://192.168.30.180/Uet-Platform/masterLogin.action" #30****測試環境**
+base_url ="https://github.com/login" #30****測試環境**
 driver.get(base_url)
-driver.find_element_by_id("txtUserName").clear()
-driver.find_element_by_id("txtUserName").send_keys("13554797004")
-driver.find_element_by_id("txtPassword").clear()
-driver.find_element_by_id("txtPassword").send_keys("123123")
-driver.find_element_by_link_text(u"登入").click()
-driver.switch_to_frame("lj_left")
-driver.find_element_by_xpath("//div[@id='left']/table/tbody/tr[6]/td").click()
-driver.find_element_by_link_text(u"****使用者單位管理").click()
+driver.find_element(by=By.ID, value="login_field").clear()
+driver.find_element(by=By.ID, value="login_field").send_keys("13554797004")
+driver.find_element(by=By.ID, value="password").clear()
+driver.find_element(by=By.ID, value="password").send_keys("123123")
+driver.find_element_by_xpath("//*[@id='login']/div[4]/form/div/input[13]").click()
+driver.quit()
 ```
 
 ### 說明:
@@ -82,10 +88,11 @@ driver.find_element_by_link_text(u"****使用者單位管理").click()
 ### 例子:
 ```python
 from selenium import webdriver
-driver = webdriver.Firefox()
-driver.get("http://www.youdao.com")
-driver.find_element_by_id('query').send_keys('hello')#提交輸入框的內容
-driver.find_element_by_id('query').submit()
+from selenium.webdriver.common.by import By
+driver = webdriver.Edge()
+driver.get("https://www.youdao.com")
+driver.find_element(by=By.ID, value="query").send_keys('hello')#提交輸入框的內容
+driver.find_element(by=By.ID, value="query").submit()
 driver.quit()
 ```
 有些時候`submit()`可以與`click()`方法互換來使用,`submit()`同樣可以提交一個按鈕。
@@ -100,23 +107,24 @@ driver.quit()
 
 ```python
 from selenium import webdriver
-driver = webdriver.Firefox()
+from selenium.webdriver.common.by import By
+driver = webdriver.Edge()
 driver.get("http://www.baidu.com")
 
 #****獲得輸入框的尺寸
-size=driver.find_element_by_id('kw').size
+size = driver.find_element(by=By.ID, value="kw").size
 print(size)
 
 #****返回百度頁面底部備案資訊
-text=driver.find_element_by_id("cp").text
+text=driver.find_element(by=By.ID, value="cp").text
 print(text)
 
 #返回元素的屬性值,可以是id、name、type 或元素擁有的其它任意屬性
-attribute=driver.find_element_by_id("kw").get_attribute('type')
+attribute=driver.find_element(by=By.ID, value="kw").get_attribute('type')
 print(attribute)
 
 #返回元素的結果是否可見,返回結果為True 或False
-result=driver.find_element_by_id("kw").is_displayed()
+result=driver.find_element(by=By.ID, value="kw").is_displayed()
 print(result)
 driver.quit()
 ```
